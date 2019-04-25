@@ -54,10 +54,10 @@ def generate_categorical_list( class_list ):
 def build_dirs():
     if not os.path.isdir('model'):
         print("Creating directory model.")
-        os.path.mkdir('model')
+        os.mkdir('model')
     if not os.path.isdir('./model/checkpoints'):
         print("Creating directory model/checkpoints.")
-        os.path.mkdir('model/checkpoints')
+        os.mkdir('model/checkpoints')
     if not os.path.isdir('data_cache'):
         print("Creating directory data_cache.")
-        os.path.mkdir('data_cache')
+        os.mkdir('data_cache')
