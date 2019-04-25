@@ -4,18 +4,14 @@ import random
 import numpy as np
 import librosa
 
-def to_np_array( data ):
-    a = np.resize(data[0], (50,400))
-    print(a.shape)
-    return
-    maxm = 0
-    for x in data:
-        maxm = max(maxm, x.shape[1])
-    ret = np.array((len(data), data[0].shape[0], maxm))
-    print(data[0], data[0].shape)
-    for num, x in enumerate(data):
-        ret[num] = np.resize(x, (data[0].shape[0], maxm))
-    return ret
+def to_np_array( data, dim ):
+    ret = []
+    for x in data):
+        x,y = dim
+        a = np.array(x, y - data.shape[1])
+        b = np.concatenate(x, a, axis=1)
+        ret.append(b)
+    return np.array(ret)
 
 def generate_class_dict( class_list ):
     class_dict = {}
