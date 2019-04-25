@@ -1,0 +1,7 @@
+*/voice_id/*
+model/*
+!model/.gitkeep
+**/*.npy
+LibriSpeech/*
+example_network/*
+**/__pycache__/
