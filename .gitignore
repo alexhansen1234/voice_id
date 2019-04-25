@@ -5,3 +5,4 @@ model/*
 LibriSpeech/*
 example_network/*
 **/__pycache__/
+data_cache

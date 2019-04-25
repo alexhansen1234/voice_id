@@ -11,10 +11,11 @@ learning_rate = 0.001
 n_mfcc=50
 batch_size = 32
 
-train_data = np.load('train_data.npy')
-train_labels = np.load('train_labels.npy')
-test_data = np.load('test_data.npy')
-test_labels = np.load('test_labels.npy')
+if not os.path.isfile('train_data.npy') or not os.path.isfile('test_labels.npy')
+    train_data = np.load('train_data.npy')
+    test_data = np.load('test_data.npy')
+    test_labels = np.load('test_labels.npy')
+
 
 tflearn.init_graph(num_cores=4)
 

@@ -13,7 +13,7 @@ batch_size = 32
 
 data_util.build_dirs()
 
-if not os.path.isfile('train_data.npy') or not os.path.isfile('test_data.npy'):
+if not os.path.isfile('data_cache/train_data.npy') or not os.path.isfile('data_cache/test_data.npy'):
     train, test = data_util.load_data(path='./LibriSpeech/training-data', fraction=0.1, n_mfcc=n_mfcc)
 
     train_data, train_labels = train
@@ -25,16 +25,16 @@ if not os.path.isfile('train_data.npy') or not os.path.isfile('test_data.npy'):
     train_labels = data_util.generate_categorical_list(train_labels)
     test_labels = data_util.generate_categorical_list(test_labels)
 
-    np.save('train_data', train_data)
-    np.save('train_labels', train_labels)
-    np.save('test_data', test_data)
-    np.save('teset_labels', test_labels)
+    np.save('data_cache/train_data', train_data)
+    np.save('data_cache/train_labels', train_labels)
+    np.save('data_cache/test_data', test_data)
+    np.save('data_cache/teset_labels', test_labels)
 
 else:
-    train_data = np.load('train_data.npy')
-    train_labels = np.load('train_labels.npy')
-    test_data = np.load('test_data.npy')
-    test_labels = np.load('test_labels.npy')
+    train_data = np.load('data_cache/train_data.npy')
+    train_labels = np.load('data_cache/train_labels.npy')
+    test_data = np.load('data_cache/test_data.npy')
+    test_labels = np.load('data_cache/test_labels.npy')
 
 tflearn.init_graph(num_cores=4)
 
