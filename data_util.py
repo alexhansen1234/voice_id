@@ -6,7 +6,7 @@ import librosa
 
 def to_np_array( data, dim ):
     ret = []
-    for x in data):
+    for x in data:
         x,y = dim
         a = np.array(x, y - data.shape[1])
         b = np.concatenate(x, a, axis=1)

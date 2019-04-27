@@ -48,6 +48,6 @@ net = tflearn.regression(net, optimizer='adam', learning_rate=learning_rate,
 model = tflearn.DNN(net, tensorboard_verbose=3, checkpoint_path='./model/checkpoints/voice_id.tfl.checkpoint')
 
 model.fit(train_data, train_labels, validation_set=(test_data, test_labels), show_metric=True,
-            snapshot_epoch=True, snapshot_step=1000, batch_size=batch_size)
+            snapshot_epoch=True, snapshot_step=1000, batch_size=batch_size, n_epoch=100)
 
 model.save('./model/voice_id.tfl')
