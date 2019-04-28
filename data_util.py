@@ -52,7 +52,7 @@ def build_dirs():
     if not os.path.isdir('model'):
         print("Creating directory model.")
         os.mkdir('model')
-    if not os.path.isdir('./model/checkpoints'):
+    if not os.path.isdir( os.path.join('model', 'checkpoints') ):
         print("Creating directory model/checkpoints.")
         os.mkdir('model/checkpoints')
     if not os.path.isdir('data_cache'):
@@ -66,9 +66,9 @@ def fetch_LibriSpeech(save_as='train-clean',
         print('Fetching ' + url_path)
         wget.download(url_path, out=dir)
         print('')
-    if not os.path.isfile(dir + '/' + save_as):
-        tar_path = dir + '/' + url_path.rsplit('/', 1)[-1]
-        print('Extracting ' + tar_path + ' to ' + dir + '/' + save_as)
+    if not os.path.isfile( os.path.join(dir,save_as) ):
+        tar_path = os.path.join(dir,url_path.rsplit('/', 1)[-1])
+        print('Extracting ' + tar_path + ' to ' + os.join(dir,save_as) )
         file = tarfile.open(tar_path)
         file.extractall(path=dir)
         file.close()

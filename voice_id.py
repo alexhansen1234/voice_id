@@ -13,16 +13,17 @@ batch_size = 32
 
 data_util.build_dirs()
 
-data_util.fetch_LibriSpeech(save_as='train-clean',
-                            dir='.',
-                            url_path='http://www.openslr.org/resources/12/train-clean-100.tar.gz')
+if not os.path.isdir( os.path.join('LibriSpeech', 'train-clean') ):
+    data_util.fetch_LibriSpeech(save_as='train-clean',
+                                dir='.',
+                                url_path='http://www.openslr.org/resources/12/train-clean-100.tar.gz')
 
-data_util.extract_data(src='LibriSpeech/train-clean-100',
-                       dest='LibriSpeech',
-                       n_classes=5)
+    data_util.extract_data(src= os.path.join('LibriSpeech', 'train-clean-100'),
+                           dest='LibriSpeech',
+                           n_classes=5)
 
-if not os.path.isfile('data_cache/train_data.npy') or not os.path.isfile('data_cache/test_data.npy'):
-    train, test = data_util.load_data(path='./LibriSpeech/training-data', fraction=0.1, n_mfcc=n_mfcc)
+if not os.path.isfile( os.path.join('data_cache','train_data.npy') ) or not os.path.isfile( os.path.join('data_cache','test_data.npy') ):
+    train, test = data_util.load_data(path=os.path.join('LibriSpeech','training-data'), fraction=0.1, n_mfcc=n_mfcc)
 
     train_data, train_labels = train
     test_data, test_labels = test
@@ -38,20 +39,22 @@ if not os.path.isfile('data_cache/train_data.npy') or not os.path.isfile('data_c
     train_labels = data_util.generate_categorical_list(train_labels)
     test_labels = data_util.generate_categorical_list(test_labels)
 
-    np.save('data_cache/train_data', train_data)
-    np.save('data_cache/train_labels', train_labels)
-    np.save('data_cache/test_data', test_data)
-    np.save('data_cache/test_labels', test_labels)
+    np.save( os.path.join('data_cache','train_data.npy'), train_data )
+    np.save( os.path.join('data_cache','train_labels.npy'), train_labels )
+    np.save( os.path.join('data_cache','test_data.npy'), test_data )
+    np.save( os.path.join('data_cache','test_labels.npy'), test_labels )
 
 else:
-    train_data = np.load('data_cache/train_data.npy')
-    train_labels = np.load('data_cache/train_labels.npy')
-    test_data = np.load('data_cache/test_data.npy')
-    test_labels = np.load('data_cache/test_labels.npy')
+    train_data = np.load( os.path.join('data_cache','train_data.npy') )
+    train_labels = np.load( os.path.join('data_cache','train_labels.npy') )
+    test_data = np.load( os.path.join('data_cache','test_data.npy') )
+    test_labels = np.load( os.path.join('data_cache','test_labels.npy') )
+
+print(train_data.shape)
 
 tflearn.init_graph(num_cores=4)
 
-net = tflearn.input_data(shape=[None,n_mfcc,train_data[0].shape[1]])
+net = tflearn.input_data(shape=[None,n_mfcc,train_data.shape[2]])
 #net = tflearn.embedding(net, input_dim=10000, output_dim=128)
 net = tflearn.lstm(net, 128, dropout=0.8)
 net = tflearn.fully_connected(net, 5, activation='softmax')
