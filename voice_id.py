@@ -33,7 +33,7 @@ if not os.path.isfile('data_cache/train_data.npy') or not os.path.isfile('data_c
     np.save('data_cache/train_data', train_data)
     np.save('data_cache/train_labels', train_labels)
     np.save('data_cache/test_data', test_data)
-    np.save('data_cache/teset_labels', test_labels)
+    np.save('data_cache/test_labels', test_labels)
 
 else:
     train_data = np.load('data_cache/train_data.npy')

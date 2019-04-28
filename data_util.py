@@ -11,8 +11,6 @@ def to_np_array( data, dim ):
     ret = []
     for x in data:
         a = np.zeros((x.shape[0], dim[1] - x.shape[1]))
-        print(a.shape)
-        print(x.shape)
         b = np.concatenate((x, a), axis=1)
         ret.append(b)
     return np.array(ret)
