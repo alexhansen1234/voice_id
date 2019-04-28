@@ -19,8 +19,13 @@ if not os.path.isfile('data_cache/train_data.npy') or not os.path.isfile('data_c
     train_data, train_labels = train
     test_data, test_labels = test
 
-    train_data = data_util.to_np_array(train_data)
-    test_data = data_util.to_np_array(test_data)
+    maxm = 0
+
+    for x in train_data + test_data:
+            maxm = max(maxm, x.shape[1])
+
+    train_data = data_util.to_np_array(train_data, dim=(n_mfcc, maxm))
+    test_data = data_util.to_np_array(test_data, dim=(n_mfcc, maxm))
 
     train_labels = data_util.generate_categorical_list(train_labels)
     test_labels = data_util.generate_categorical_list(test_labels)
