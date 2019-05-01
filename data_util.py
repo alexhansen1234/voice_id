@@ -59,21 +59,23 @@ def build_dirs():
         print("Creating directory data_cache.")
         os.mkdir('data_cache')
 
-def fetch_LibriSpeech(save_as='train-clean',
-                      dir='.',
+def fetch_LibriSpeech(dir='.',
                       url_path='http://www.openslr.org/resources/12/train-clean-100.tar.gz'):
-    if not os.path.isfile( os.path.join(dir,save_as) ):
+    tarname = url_path.rsplit('/', 1)[-1]
+    # wget url_path
+    if not os.path.isfile( os.path.join(dir,tarname) ):
         print('Fetching ' + url_path)
         wget.download(url_path, out=dir)
         print('')
-    if not os.path.isfile( os.path.join(dir,save_as) ):
-        tar_path = os.path.join(dir,url_path.rsplit('/', 1)[-1])
-        print('Extracting ' + tar_path + ' to ' + os.join(dir,save_as) )
-        file = tarfile.open(tar_path)
-        file.extractall(path=dir)
-        file.close()
-        print('Deleting ' + tar_path)
-        os.remove(tar_path)
+    # extract
+    tarname = url_path.rsplit('/', 1)[-1]
+    tarpath = os.path.join(dir,tarname)
+    print('Extracting ' + tarname + ' to ' + dir)
+    file = tarfile.open(tarpath)
+    file.extractall(path=dir)
+    file.close()
+    print('Deleting ' + tarname)
+    os.remove(tarpath)
 
 def get_size(path = '.'):
     total_size = 0

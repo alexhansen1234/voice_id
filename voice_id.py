@@ -14,16 +14,15 @@ batch_size = 32
 data_util.build_dirs()
 
 if not os.path.isdir( os.path.join('LibriSpeech', 'train-clean') ):
-    data_util.fetch_LibriSpeech(save_as='train-clean',
-                                dir='.',
+    data_util.fetch_LibriSpeech(dir='.',
                                 url_path='http://www.openslr.org/resources/12/train-clean-100.tar.gz')
 
     data_util.extract_data(src= os.path.join('LibriSpeech', 'train-clean-100'),
-                           dest='LibriSpeech',
+                           dest=os.path.join('LibriSpeech', 'train-clean'),
                            n_classes=5)
 
 if not os.path.isfile( os.path.join('data_cache','train_data.npy') ) or not os.path.isfile( os.path.join('data_cache','test_data.npy') ):
-    train, test = data_util.load_data(path=os.path.join('LibriSpeech','training-data'), fraction=0.1, n_mfcc=n_mfcc)
+    train, test = data_util.load_data(path=os.path.join('LibriSpeech','train-clean'), fraction=0.1, n_mfcc=n_mfcc)
 
     train_data, train_labels = train
     test_data, test_labels = test
